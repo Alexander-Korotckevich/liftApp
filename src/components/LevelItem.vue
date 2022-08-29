@@ -1,7 +1,9 @@
 <template>
   <li :class="$style.levelItem">
     <h2 :class="$style.number">{{ number }}</h2>
-    <button :class="$style.btn"><span :class="$style.btnIcon"></span></button>
+    <button @click="this.$store.commit('remove', number)" :class="$style.btn">
+      <span :class="$style.btnIcon"></span>
+    </button>
   </li>
 </template>
 
