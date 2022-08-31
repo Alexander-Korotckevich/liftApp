@@ -1,7 +1,7 @@
 <template>
   <li :class="$style.levelItem">
     <h2 :class="$style.number">{{ number }}</h2>
-    <button @click="this.$store.commit('remove', number)" :class="$style.btn">
+    <button @click="moveCabine(number)" :class="$style.btn">
       <span :class="$style.btnIcon"></span>
     </button>
   </li>
@@ -11,6 +11,27 @@
 export default {
   name: "LevelItem",
   props: ["number"],
+  computed: {
+    difference() {
+      return this.$store.state.numbersDifference;
+    },
+  },
+  methods: {
+    moveCabine(el) {
+      this.$store.dispatch("changeNumber", el);
+      if (this.difference) {
+        setTimeout(() => {
+          let tickId = setInterval(() => {
+            this.$store.dispatch("displayCabine");
+          }, 300);
+          setTimeout(() => {
+            clearInterval(tickId);
+          }, 3000);
+        }, this.difference * 1000);
+        console.trace();
+      }
+    },
+  },
 };
 </script>
 

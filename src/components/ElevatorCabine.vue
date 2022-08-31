@@ -1,10 +1,29 @@
 <template>
-  <div :class="$style.elevatorCabine"></div>
+  <div
+    v-show="isDisplay"
+    :style="{
+      marginBottom: number_data + 'px',
+      transitionDuration: transition_duration + 's',
+    }"
+    :class="$style.elevatorCabine"
+  ></div>
 </template>
 
 <script>
 export default {
   name: "ElevatorCabine",
+  computed: {
+    isDisplay() {
+      return this.$store.state.displayCabine;
+    },
+    number_data() {
+      return (this.$store.state.number - 1) * 250;
+    },
+
+    transition_duration() {
+      return this.$store.state.numbersDifference;
+    },
+  },
 };
 </script>
 
@@ -12,8 +31,8 @@ export default {
 .elevatorCabine {
   width: 100%;
   height: 250px;
-}
-.elevatorCabine:first-of-type {
   background-color: grey;
+  transition-property: margin-bottom;
+  transition-timing-function: linear;
 }
 </style>
